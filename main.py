@@ -11,6 +11,9 @@ filename = "sources/source.png"
 # template for algorithm to match objects to, image of individual cilia
 template_file = "templates/americanis template 2.png"
 
+# filename of result image, keep in results folder
+results_file = "results/result.png"
+
 # factor that image size is increased by, increase for higher resolution
 scale_factor = 4
 
@@ -86,8 +89,11 @@ for i in range(len(circles)):
             cv2.putText(img, str(round(dist/4, 2)), midpoint, cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 0.4, (b, g, r), 1, cv2.LINE_AA)
 
 
-print(len(matches))
-cv2.imwrite("results/result.png", img)
+#print(len(matches))
+print(f"Using {filename} as source image\nUsing {template_file} as template image")
+cv2.imwrite(results_file, img)
+print(f"Saved image to {results_file}")
 cv2.imshow("window", img)
+print("\nPress any key to close image")
 cv2.waitKey(0)
 cv2.destroyAllWindows
