@@ -33,7 +33,7 @@ OpenCV is a library that lets Python work with images and videos.
 
 2. Type this command and press Enter:
     ```bash
-    pip install opencv-python
+    pip3 install opencv-python
     ```
 
 3. If no errors occur, you're good to go!
