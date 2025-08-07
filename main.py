@@ -2,18 +2,37 @@ import cv2
 import numpy as np
 import time, random
 
-img = cv2.imread("assets/americanis_2.png", 1)
-template = cv2.imread("assets/americanis template 2.png", 0)
+'''
+ ------- PARAMETERS FOR CODE ------- 
+'''
+# image that you want code to use, keep as .png
+filename = "sources/source.png"
 
-img = cv2.resize(img, (0, 0), fx=4, fy=4)
-template = cv2.resize(template, (0, 0), fx=4, fy=4)
+# template for algorithm to match objects to, image of individual cilia
+template_file = "templates/americanis template 2.png"
+
+# factor that image size is increased by, increase for higher resolution
+scale_factor = 4
+
+# strictness of algorithm, higher = more accurate, less matches
+threshold = 0.85
+
+'''
+ ------------ CODE ------------ 
+'''
+
+img = cv2.imread(filename, 1)
+template = cv2.imread(template_file, 0)
+
+# resizing image
+img = cv2.resize(img, (0, 0), fx=scale_factor, fy=scale_factor)
+template = cv2.resize(template, (0, 0), fx=scale_factor, fy=scale_factor)
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 h, w = template.shape
 
 result = cv2.matchTemplate(gray, template, cv2.TM_CCOEFF_NORMED) # returns array where higher value = better match
 
-threshold = 0.85
 locations = np.where(result >= threshold) # returns array of indexes where the value in result is greater than threshold
 #print(len(locations[0]))
 
@@ -68,7 +87,7 @@ for i in range(len(circles)):
 
 
 print(len(matches))
-cv2.imwrite("assets/template_result.png", img)
+cv2.imwrite("results/result.png", img)
 cv2.imshow("window", img)
 cv2.waitKey(0)
 cv2.destroyAllWindows
